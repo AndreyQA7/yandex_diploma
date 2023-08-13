@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "780aae5a-90b2-422a-982b-fe0dc69ae16b",
+		"name": "TEST_DIPLOMA_COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25169770",
+		"_collection_link": "https://blue-rocket-605850.postman.co/workspace/New-Team-Workspace~0e2c76e6-ee7c-42e4-965c-38fd1120cc9a/collection/25169770-780aae5a-90b2-422a-982b-fe0dc69ae16b?action=share&source=collection_link&creator=25169770"
+	},
+	"item": [
+		{
+			"name": "Создание нового заказа",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Haode\",\r\n    \"lastName\": \"Ren\",\r\n    \"address\": \"Ningbo City\",\r\n    \"metroStation\": 4,\r\n    \"phone\": \"+7 800 755 35 35\",\r\n    \"rentTime\": 5,\r\n    \"deliveryDate\": \"2020-06-06\",\r\n    \"comment\": \"Hello, dude!\",\r\n    \"color\": [\r\n        \"BLACK\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8.serverhub.praktikum-services.ru/api/v1/orders",
+					"protocol": "https",
+					"host": [
+						"1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8",
+						"serverhub",
+						"praktikum-services",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка статуса 200",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8.serverhub.praktikum-services.ru/v1/orders/track?t=903858",
+					"protocol": "https",
+					"host": [
+						"1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8",
+						"serverhub",
+						"praktikum-services",
+						"ru"
+					],
+					"path": [
+						"v1",
+						"orders",
+						"track"
+					],
+					"query": [
+						{
+							"key": "t",
+							"value": "903858"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTO_TEST_JAVASCRIPT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1. Напишем код для создания запроса \r",
+							"\r",
+							"pm.sendRequest({\r",
+							"  url: 'https://1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8.serverhub.praktikum-services.ru/api/v1/orders',\r",
+							"  method: 'POST',\r",
+							"  body: {\r",
+							"    mode: 'raw',\r",
+							"    raw: JSON.stringify({\r",
+							"    \"firstName\": \"Haode\",\r",
+							"    \"lastName\": \"Ren\",\r",
+							"    \"address\": \"Ningbo City\",\r",
+							"    \"metroStation\": 4,\r",
+							"    \"phone\": \"+7 800 755 35 35\",\r",
+							"    \"rentTime\": 5,\r",
+							"    \"deliveryDate\": \"2020-06-06\",\r",
+							"    \"comment\": \"Hello, dude!\",\r",
+							"    \"color\": [\r",
+							"        \"BLACK\"\r",
+							"    ]\r",
+							"    })\r",
+							"  },\r",
+							"  headers: {\r",
+							"    'Content-Type': 'application/json'\r",
+							"  }\r",
+							"}, function (err, response) {\r",
+							"  if (err) {\r",
+							"    console.error(err);\r",
+							"    return;\r",
+							"  }\r",
+							"\r",
+							"// 2. Напишем код для сохранения трека\r",
+							"\r",
+							"var track = response.json().track;\r",
+							"\r",
+							"// 3. Напишем запрос на выполнение запроса на получение заказа по треку заказа\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: 'https://1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8.serverhub.praktikum-services.ru/v1/orders/track?t=' + track,\r",
+							"    method: 'GET',\r",
+							"    headers: {\r",
+							"      'Content-Type': 'application/json'\r",
+							"    }\r",
+							"  }, function (err, response) {\r",
+							"    if (err) {\r",
+							"      console.error(err);\r",
+							"      return;\r",
+							"    }\r",
+							"\r",
+							"// 4. Теперь пишем код для проверки кода ответа (200)\r",
+							"\r",
+							"pm.test('Код ответа равен 200', function () {\r",
+							"      pm.expect(response.code).to.equal(200);\r",
+							"    });\r",
+							"  });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8.serverhub.praktikum-services.ru",
+					"protocol": "https",
+					"host": [
+						"1f9922f1-3cf9-4223-91ef-cf9c67a1e2a8",
+						"serverhub",
+						"praktikum-services",
+						"ru"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
